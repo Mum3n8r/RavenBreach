@@ -69,7 +69,7 @@ namespace RavenbreachMod
     [HarmonyPatch(typeof(AudioSource), nameof(AudioSource.PlayOneShot), new[] { typeof(AudioClip), typeof(float) })]
     public static class BulletFlybySoundPatch
     {
-        private const float CLOSE_THRESHOLD = 0.35f;
+        private const float CLOSE_THRESHOLD = 0.55f; // raised from 0.35 — only very close shots crack
         static bool Prefix(ref AudioClip clip, ref float volumeScale)
         {
             if (clip == null) return true;
@@ -79,11 +79,11 @@ namespace RavenbreachMod
             if (isClose)
             {
                 BulletAudioPool.PlayCrack(Mathf.Clamp(volumeScale * 3.8f, 0f, 1f));
-                BulletAudioPool.PlayWhizz(volumeScale); // pool handles the whisper cap internally
+                BulletAudioPool.PlayWhizz(volumeScale);
             }
-            else
+            else if (volumeScale >= 0.15f) // ignore very quiet ambient flyby sounds entirely
             {
-                BulletAudioPool.PlayWhizz(volumeScale * 0.6f); // distant pass, even quieter
+                BulletAudioPool.PlayWhizz(volumeScale * 0.6f);
             }
             return false;
         }

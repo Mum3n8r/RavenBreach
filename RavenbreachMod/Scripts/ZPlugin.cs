@@ -48,7 +48,7 @@ namespace RavenbreachMod
             TryPatch(typeof(BotScopeEngagementPatch));
             TryPatch(typeof(BotSuppressedCoverPatch));
             TryPatch(typeof(BotEngagementMemoryPatch));
-            TryPatch(typeof(BotSpawnMobilizePatch));
+            // TryPatch(typeof(BotSpawnMobilizePatch)); // disabled — causes running-in-place on maps with complex navmesh
             TryPatch(typeof(BotVehicleUtilizationPatch));
             TryPatch(typeof(BotEngagementDeathPatch));
             TryPatch(typeof(DownedBotKillPatch));

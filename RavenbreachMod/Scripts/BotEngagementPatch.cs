@@ -349,6 +349,8 @@ namespace RavenbreachMod
                     if (d < bestD) { bestD = d; best = sp; }
                 }
                 if (best == null) return;
+                // Only mobilize if the target is far enough away to be worth pathing
+                if (Vector3.Distance(actor.Position(), best.transform.position) < 50f) return;
 
                 // Small stagger so all spawning bots don't all path simultaneously
                 float delay = UnityEngine.Random.Range(0.5f, 2.5f);
